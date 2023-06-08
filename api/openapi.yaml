@@ -1,0 +1,174 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: lampralexandros@gmail.com
+  description: This is a sample openApi document
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://wabli.netlify.app/
+  title: TempApi
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- description: solid-spoon
+  url: http://83.212.100.226:3001/v1
+security:
+- {}
+tags:
+- description: not yet ready
+  name: patients
+paths:
+  /patients:
+    post:
+      operationId: createpatients
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/patients'
+        description: data to be created
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/patients'
+          description: successful operation
+      summary: Creates the data
+      tags:
+      - patients
+      x-eov-operation-handler: controllers/PatientsController
+  /patients/{patientsId}:
+    delete:
+      operationId: deletepatients
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: patientsId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: successful operation
+      summary: Delete the element
+      tags:
+      - patients
+      x-eov-operation-handler: controllers/PatientsController
+    get:
+      operationId: getpatients
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: patientsId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/patients'
+          description: successful operation
+      summary: Get the element
+      tags:
+      - patients
+      x-eov-operation-handler: controllers/PatientsController
+    put:
+      operationId: updatepatients
+      parameters:
+      - description: the Id parameter
+        explode: false
+        in: path
+        name: patientsId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/patients'
+        description: data to be updated
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/patients'
+          description: successful operation
+      summary: Updates the element
+      tags:
+      - patients
+      x-eov-operation-handler: controllers/PatientsController
+  /patients/getAll:
+    get:
+      operationId: getAllpatients
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/patients'
+                type: array
+          description: successful operation
+      summary: Get all the data
+      tags:
+      - patients
+      x-method-getAll: "true"
+      x-eov-operation-handler: controllers/PatientsController
+  /patients/getByParams:
+    get:
+      operationId: getByParamspatients
+      parameters:
+      - description: the query based on which the search is performed
+        explode: true
+        in: query
+        name: filter
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/patients'
+                type: array
+          description: successful operation
+      summary: Get all the data based on user query
+      tags:
+      - patients
+      x-method-get-by-params: "true"
+      x-eov-operation-handler: controllers/PatientsController
+components:
+  schemas:
+    patients:
+      example:
+        pname: pname
+        _id: _id
+        page: page
+      properties:
+        _id:
+          type: string
+        pname:
+          type: string
+        page:
+          type: string
+      required:
+      - page
+      - pname
+      type: object
